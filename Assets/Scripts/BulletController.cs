@@ -46,7 +46,7 @@ public class BulletController : MonoBehaviour
 
         if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.CanShoot())
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.isBulletSelected)
             {
                 isDragging = true;
                 lineRenderer.enabled = true;
@@ -86,6 +86,7 @@ public class BulletController : MonoBehaviour
     {
         Destroy(gameObject);
         PlayerController.Instance.MakeIt();
+        PlayerController.Instance.isBulletSelected = false;
     }
 
     void FixedUpdate()

@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; }
 
     [SerializeField] private GameObject BulletPrefab;
+    public bool isBulletSelected = false;
 
 
     private void Awake()
@@ -30,5 +31,14 @@ public class PlayerController : MonoBehaviour
     public void MakeIt()
     {
         Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
+    }
+
+
+    public void UseItem(int item)
+    {
+        if (ItemController.Instance.ItemUsed(item))
+        {
+            isBulletSelected = true;
+        }
     }
 }
