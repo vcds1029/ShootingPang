@@ -4,10 +4,12 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - BackGround
+ItemController
   - Point
-  - Bomb
   - Wall
+  - Bomb
+  - BackGround
+main
   - Bullet
   layers:
   - Default
