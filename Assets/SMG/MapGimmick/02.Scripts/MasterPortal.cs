@@ -1,21 +1,20 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /*
+ * [마스터 포탈]
  * 포탈기능 관리
  * 포탈은 2개이상의 포탈이 한 묶음이므로, 이를 관리하는 기능을 수행함
  */
 
-public class MasterPortalBlock : MonoBehaviour
+public class MasterPortal : MonoBehaviour
 {
     List<int> inObjectIDList;// = new List<int>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         inObjectIDList = new List<int>();
-
     }
 
     // Update is called once per frame
@@ -23,7 +22,6 @@ public class MasterPortalBlock : MonoBehaviour
     {
         
     }
-
 
     void ResetIDList()
     {
@@ -35,15 +33,15 @@ public class MasterPortalBlock : MonoBehaviour
         inObjectIDList.Add(id);
     }
 
-    
+
 
     public bool FindID(int findID)
     {
         bool isFind = false;
 
-        foreach(int id in inObjectIDList)
+        foreach (int id in inObjectIDList)
         {
-            if(id == findID)
+            if (id == findID)
             {
                 isFind = true;
                 break;
@@ -52,5 +50,4 @@ public class MasterPortalBlock : MonoBehaviour
 
         return isFind;
     }
-
 }
