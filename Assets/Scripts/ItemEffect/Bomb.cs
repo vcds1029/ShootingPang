@@ -6,7 +6,7 @@ public class Bomb : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Wall"))
+        if (collision.transform.CompareTag("Block"))
         {
             print("Æø¹ß!");
             _circleColl.enabled = true;

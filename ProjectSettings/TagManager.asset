@@ -10,6 +10,7 @@ TagManager:
   - Bomb
   - Wall
   - Coin
+  - Block
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Coin
+  - Invincible
+  - Destroyer
   - 
   - 
   - 

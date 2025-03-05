@@ -1,6 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class Block : MonoBehaviour
 {
     Rigidbody2D _rigid2D;
 
@@ -17,12 +18,12 @@ public class Wall : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.CompareTag("Explosion"))
+        if (collider.CompareTag("Explosion"))
         {
             gameObject.SetActive(false);
-            collision.transform.root.gameObject.SetActive(false);
+            collider.transform.root.gameObject.SetActive(false);
         }
     }
 }
