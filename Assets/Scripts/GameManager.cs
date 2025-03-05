@@ -85,9 +85,9 @@ public class GameManager : MonoBehaviour
     {
         StageData stage0 = new StageData
             (
-                new int[] { 1, 1, 1, 1, 0, 0 },
-                5, 
-                3
+                new int[] { 5, 5, 5, 5, 0, 0 },
+                10, 
+                2
             );
         stageInfo.Add(stage0);
 

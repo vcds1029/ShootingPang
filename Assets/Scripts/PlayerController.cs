@@ -83,8 +83,8 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     selectedItem = i;
-                itemController.SelectItem(i);
-                isBulletSelected = true;
+                    itemController.SelectItem(i);
+                    isBulletSelected = true;
                 }
             }
         }

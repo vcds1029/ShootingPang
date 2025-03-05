@@ -20,7 +20,7 @@ public class Block : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Explosion"))
+        if (collider.CompareTag("Explosion") && _rigid2D.bodyType == RigidbodyType2D.Dynamic)
         {
             gameObject.SetActive(false);
             collider.transform.root.gameObject.SetActive(false);
