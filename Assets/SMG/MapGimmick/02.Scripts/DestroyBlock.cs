@@ -15,7 +15,8 @@ public class DestroyBlock : MonoBehaviour
             //    Break;
 
             Destroy(collision.gameObject);
-            Invoke("MakeBullet", 2f);
+            //Invoke("MakeBullet", 2f);
+            MakeBullet();
         }
     }
 
@@ -25,6 +26,7 @@ public class DestroyBlock : MonoBehaviour
         PlayerController.Instance.isBulletSelected = false;
         PlayerController.Instance.selectAvailable = true;
         PlayerController.Instance.bulletDestroyed = true;
+        PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
     }
 
 }

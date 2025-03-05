@@ -51,6 +51,14 @@ public class BulletController : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance == null) return;
+        if (GameManager.Instance.isGameReset)
+        {
+            Destroy(gameObject);
+            PlayerController.Instance.isBulletSelected = false;
+            PlayerController.Instance.selectAvailable = true;
+            PlayerController.Instance.bulletDestroyed = true;
+            GameManager.Instance.isGameReset = false;
+        }
 
         if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.isGameProceed)
         {

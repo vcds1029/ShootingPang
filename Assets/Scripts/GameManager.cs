@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> Panels;
 
     public bool isGameProceed;
+    public bool isGameReset;
 
     private GameObject currentStageObject;
 
@@ -109,15 +110,16 @@ public class GameManager : MonoBehaviour
 
     public void NextStage()
     {
-        foreach (GameObject p in Panels)
-        {
-            p.SetActive(false);
-        }
+        Panels[(int)Panel.nextStage].SetActive(false);
         //PrepareStage(++currentStage);
         isGameProceed = true;
+        isGameReset = true;
         Destroy(currentStageObject);
         currentStageObject = Instantiate(stages[++currentStage]);
         //Panels[(int)Panel.nextStage].SetActive(true);
+        PlayerController.Instance.MakeBullet();
+        ItemController.Instance.UnSelectItem();
+        PlayerController.Instance.selectedItem = -1;
     }
 
     public void RetryStage()
@@ -133,6 +135,9 @@ public class GameManager : MonoBehaviour
         currentStageObject = Instantiate(stages[currentStage]);
         Panels[(int)Panel.gameOver].SetActive(true);
         isGameProceed = false;
+        //PlayerController.Instance.MakeBullet();
+        ItemController.Instance.UnSelectItem();
+        PlayerController.Instance.selectedItem = -1;
     }
 
     public void GainCoin()
@@ -163,6 +168,19 @@ public class GameManager : MonoBehaviour
         Destroy(currentStageObject);
         currentStageObject = Instantiate(stages[currentStage]);
         isGameProceed = true;
+        isGameReset = true;
+        //StartCoroutine(RestartCooltime());
+
+        //Destroy(GameObject.Find("Bullet(Clone)"));
+        PlayerController.Instance.MakeBullet();
+        ItemController.Instance.UnSelectItem();
+        PlayerController.Instance.selectedItem = -1;
+    }
+
+    private IEnumerator RestartCooltime()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isGameReset = false;
     }
 
 

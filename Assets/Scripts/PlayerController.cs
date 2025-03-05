@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateBulletPossess()
     {
-        bulletText.text = "Rest Bullet: \n";
+        bulletText.text = "Rest Bullet \n";
         bulletText.text += $"X {bulletPossess}";
     }
 
