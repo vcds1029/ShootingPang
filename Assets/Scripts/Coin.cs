@@ -17,13 +17,4 @@ public class Coin : MonoBehaviour
             _rigid2D.linearVelocity -= _rigid2D.linearVelocity * Time.deltaTime;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Bullet"))
-        {
-            GameManager.Instance.AddScore(1);
-            gameObject.SetActive(false);
-        }
-    }
 }
