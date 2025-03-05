@@ -8,11 +8,13 @@ public class LeverBlock : MonoBehaviour
 
     public bool isOn = false;
 
-    public Vector2 On_minXY;
-    public Vector2 On_maxXY;
+    public AudioClip sfx;
 
-    public Vector2 Off_minXY;
-    public Vector2 Off_maxXY;
+    public Vector2 On_minXY = new Vector2(-1,-1);
+    public Vector2 On_maxXY = new(0, 1);
+
+    public Vector2 Off_minXY = new Vector2(0,-1);
+    public Vector2 Off_maxXY = new(1, 1);
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -38,11 +40,17 @@ public class LeverBlock : MonoBehaviour
         // On
         if(onArea.Contains(transform.InverseTransformPoint(collision.GetContact(0).point)))
         {
+            if(!isOn)
+                SoundsPlayer.Instance.PlaySFX(sfx);
             isOn = true;
+            
         }
         else if (offArea.Contains(transform.InverseTransformPoint(collision.GetContact(0).point)))
         {
+            if(isOn)
+                SoundsPlayer.Instance.PlaySFX(sfx);
             isOn = false;
+            
         }
     }
 

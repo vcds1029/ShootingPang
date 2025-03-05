@@ -18,6 +18,8 @@ public class PortalBlock : MonoBehaviour
 
     public GameObject OutPortal;
 
+    public AudioClip sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -55,6 +57,8 @@ public class PortalBlock : MonoBehaviour
                 float y = velocity.x * sin + velocity.y * cos;
 
                 collision.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(x, y);
+
+                SoundsPlayer.Instance.PlaySFX(sfx);
                 #region ¿¡·¯ ÈçÀû
 #if false
                 ////Debug.Log("sin(0) : " + Mathf.Sin(0) + " sin(90): " + Mathf.Sin(90 * Mathf.Deg2Rad));

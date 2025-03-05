@@ -3,6 +3,8 @@ using UnityEngine;
 public class TunnelBlock : MonoBehaviour
 {
     public float power = 100f;
+    public AudioClip sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,5 +27,7 @@ public class TunnelBlock : MonoBehaviour
         Vector2 dir = new Vector2(-Mathf.Sin(rad), Mathf.Cos(rad));
 
         collision.GetComponent<Rigidbody2D>().linearVelocity = power * dir;
+
+        SoundsPlayer.Instance.PlaySFX(sfx);
     }
 }
