@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,9 +19,18 @@ public class DestroyBlock : MonoBehaviour
             // 레이어 예외처리
             //if (collision.gameObject.layer == LayerMask.NameToLayer(layerInvincible))
             //    Break;
-            MakeBullet();
+
             Destroy(collision.gameObject);
+            StartCoroutine(LateDestroy(collision));
         }
+    }
+
+    private IEnumerator LateDestroy(Collider2D collision)
+    {
+        GameManager.Instance.canRetry = false;
+        yield return new WaitForSeconds(1f);
+        MakeBullet();
+        GameManager.Instance.canRetry = true;
     }
 
     private void MakeBullet()

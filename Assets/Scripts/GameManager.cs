@@ -1,11 +1,8 @@
-using Mono.Cecil;
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
 public struct StageData
@@ -25,7 +22,8 @@ public struct StageData
 public enum Panel
 {
     gameOver = 0,
-    nextStage = 1
+    nextStage = 1,
+    gameEnd = 2
 }
 
 
@@ -47,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject currentStageObject;
 
+    public bool canRetry;
+
 
     private void Awake()
     {
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
         //stages[currentStage].SetActive(true);
         currentStageObject = Instantiate(stages[currentStage]); 
         isGameProceed = true;
+        canRetry = true;
     }
 
     private void Update()
@@ -110,16 +111,23 @@ public class GameManager : MonoBehaviour
 
     public void NextStage()
     {
-        Panels[(int)Panel.nextStage].SetActive(false);
-        //PrepareStage(++currentStage);
-        isGameProceed = true;
-        isGameReset = true;
-        Destroy(currentStageObject);
-        currentStageObject = Instantiate(stages[++currentStage]);
-        //Panels[(int)Panel.nextStage].SetActive(true);
-        PlayerController.Instance.MakeBullet();
-        ItemController.Instance.UnSelectItem();
-        PlayerController.Instance.selectedItem = -1;
+        if (currentStage == 3)
+        {
+            Panels[(int)Panel.gameEnd].SetActive(true);
+        }
+        else
+        {
+            Panels[(int)Panel.nextStage].SetActive(false);
+            //PrepareStage(++currentStage);
+            isGameProceed = true;
+            isGameReset = true;
+            Destroy(currentStageObject);
+            currentStageObject = Instantiate(stages[++currentStage]);
+            //Panels[(int)Panel.nextStage].SetActive(true);
+            PlayerController.Instance.MakeBullet();
+            ItemController.Instance.UnSelectItem();
+            PlayerController.Instance.selectedItem = -1;
+        }
     }
 
     public void RetryStage()
@@ -164,17 +172,20 @@ public class GameManager : MonoBehaviour
 
     public void RetryNow()
     {
-        Panels[(int)Panel.gameOver].SetActive(false);
-        Destroy(currentStageObject);
-        currentStageObject = Instantiate(stages[currentStage]);
-        isGameProceed = true;
-        isGameReset = true;
-        //StartCoroutine(RestartCooltime());
+        if (canRetry)
+        {
+            Panels[(int)Panel.gameOver].SetActive(false);
+            Destroy(currentStageObject);
+            currentStageObject = Instantiate(stages[currentStage]);
+            isGameProceed = true;
+            isGameReset = true;
+            //StartCoroutine(RestartCooltime());
 
-        //Destroy(GameObject.Find("Bullet(Clone)"));
-        PlayerController.Instance.MakeBullet();
-        ItemController.Instance.UnSelectItem();
-        PlayerController.Instance.selectedItem = -1;
+            //Destroy(GameObject.Find("Bullet(Clone)"));
+            PlayerController.Instance.MakeBullet();
+            ItemController.Instance.UnSelectItem();
+            PlayerController.Instance.selectedItem = -1;
+        }
     }
 
     private IEnumerator RestartCooltime()

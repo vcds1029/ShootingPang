@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -112,8 +113,14 @@ public class PlayerController : MonoBehaviour
 
         if (bulletPossess == 0)
         {
-            GameManager.Instance.NoBullet();
+            StartCoroutine(LateCallNoBullet());
         }
+    }
+
+    private IEnumerator LateCallNoBullet()
+    {
+        yield return new WaitForSeconds(3.0f);
+        GameManager.Instance.NoBullet();
     }
 
     public void InitBullet(int numBullet)
