@@ -7,7 +7,7 @@ public class Eat : MonoBehaviour
     {
         if (collider.transform.CompareTag("Bullet"))
         {
-            GameManager.Instance.AddScore(1);
+            GameManager.Instance.GainCoin();
             Destroy(transform.parent.gameObject);
         }
     }
