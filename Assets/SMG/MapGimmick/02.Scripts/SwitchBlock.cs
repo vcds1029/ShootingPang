@@ -9,12 +9,6 @@ public class SwitchBlock : MonoBehaviour
         isOn = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isOn = !isOn;
