@@ -117,7 +117,7 @@ public class BulletController : MonoBehaviour
     void DestroyBullet()
     {
         Destroy(gameObject);
-        PlayerController.Instance.MakeIt();
+        PlayerController.Instance.MakeBullet();
         PlayerController.Instance.isBulletSelected = false;
         PlayerController.Instance.selectAvailable = true;
         PlayerController.Instance.bulletDestroyed = true;

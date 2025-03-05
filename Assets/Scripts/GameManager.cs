@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private List<GameObject> stages;
-    private List<StageData> stageInfo = new List<StageData>();
+    //private List<StageData> stageInfo = new List<StageData>();
     int currentStage;
 
     [SerializeField] private TextMeshProUGUI coinText;
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> Panels;
 
     public bool isGameProceed;
+
+    private GameObject currentStageObject;
 
 
     private void Awake()
@@ -57,69 +59,43 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        InitStages();
-
         currentStage = 0;
-        PrepareStage(currentStage);
-        stages[currentStage].SetActive(true);
+        //PrepareStage(currentStage);
+        //stages[currentStage].SetActive(true);
+        currentStageObject = Instantiate(stages[currentStage]);
         isGameProceed = true;
     }
 
     private void Update()
     {
-        if (PlayerController.Instance.bulletPossess >= 0 && remainCoin == 0)
-        {
-            // Win condition
-            Panels[(int)Panel.nextStage].SetActive(true);
-        }
-        if (PlayerController.Instance.bulletPossess == 0 && PlayerController.Instance.bulletDestroyed && remainCoin != 0)
-        {
-            // Lose condition
-            Panels[(int)Panel.gameOver].SetActive(true);
-            isGameProceed = false;
-        }
+        //if (PlayerController.Instance.bulletPossess >= 0 && remainCoin == 0)
+        //{
+        //    // Win condition
+        //    Panels[(int)Panel.nextStage].SetActive(true);
+        //}
+        //if (PlayerController.Instance.bulletPossess == 0 && PlayerController.Instance.bulletDestroyed && remainCoin != 0)
+        //{
+        //    // Lose condition
+        //    Panels[(int)Panel.gameOver].SetActive(true);
+        //    isGameProceed = false;
+        //}
     }
 
-
-    private void InitStages()
-    {
-        StageData stage0 = new StageData
-            (
-                new int[] { 5, 5, 5, 5, 0, 0 },
-                10, 
-                2
-            );
-        stageInfo.Add(stage0);
-
-        StageData stage1 = new StageData
-            (
-                new int[] { 2, 2, 2, 2, 0, 0 },
-                5,
-                6
-            );
-        stageInfo.Add(stage1);
-
-        StageData stage2 = new StageData
-            (
-
-                new int[] { 3, 3, 3, 3, 0, 0 },
-                5,
-                9
-            );
-        stageInfo.Add(stage2);
-    }
-
+    // DEPRECATED
     private void PrepareStage(int stage)
     {
-        foreach (GameObject s in stages)
-        {
-            s.SetActive(false);
-        }
-        stages[stage].SetActive(true);
+        //foreach (GameObject s in stages)
+        //{
+        //    s.SetActive(false);
+        //}
+        //stages[stage].SetActive(true);
 
-        ItemController.Instance.items = stageInfo[stage].items;
-        PlayerController.Instance.bulletPossess = stageInfo[stage].bullet;
-        remainCoin = stageInfo[stage].coin;
+        //ItemController.Instance.items = stageInfo[stage].items;
+        //PlayerController.Instance.bulletPossess = stageInfo[stage].bullet;
+        //remainCoin = stageInfo[stage].coin;
+
+        Instantiate(stages[stage]);
+        isGameProceed = true;
 
         ItemController.Instance.ShowItem();
         PlayerController.Instance.UpdateBulletPossess();
@@ -137,29 +113,62 @@ public class GameManager : MonoBehaviour
         {
             p.SetActive(false);
         }
-        PrepareStage(++currentStage);
+        //PrepareStage(++currentStage);
         isGameProceed = true;
+        Destroy(currentStageObject);
+        currentStageObject = Instantiate(stages[++currentStage]);
+        //Panels[(int)Panel.nextStage].SetActive(true);
     }
 
     public void RetryStage()
     {
-        foreach (GameObject p in Panels)
-        {
-            p.SetActive(false);
-        }
-        PrepareStage(currentStage);
+        //foreach (GameObject p in Panels)
+        //{
+        //    p.SetActive(false);
+        //}
+        //PrepareStage(currentStage);
+        //isGameProceed = true;
         isGameProceed = true;
+        Destroy(currentStageObject);
+        currentStageObject = Instantiate(stages[currentStage]);
+        Panels[(int)Panel.gameOver].SetActive(true);
+        isGameProceed = false;
     }
 
     public void GainCoin()
     {
         remainCoin--;
         coinText.SetText($"Rest Coin \n X {remainCoin}");
+
+        if (remainCoin == 0)
+        {
+            isGameProceed = false;
+            //NextStage();
+            Panels[(int)Panel.nextStage].SetActive(true);
+        }
+    }
+
+    public void NoBullet()
+    {
+        if (remainCoin != 0)
+        {
+            RetryStage();
+        }
     }
 
 
+    public void RetryNow()
+    {
+        Destroy(currentStageObject);
+        currentStageObject = Instantiate(stages[currentStage]);
+    }
 
 
+    public void InitCoin(int numCoin)
+    {
+        remainCoin = numCoin;
+        coinText.SetText($"Rest Coin \n X {remainCoin}");
+    }
 
 
 

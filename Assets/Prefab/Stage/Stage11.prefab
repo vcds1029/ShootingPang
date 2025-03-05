@@ -171,6 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8393406872897841538}
+  - component: {fileID: 5896677265725365249}
   m_Layer: 0
   m_Name: Stage11
   m_TagString: Untagged
@@ -202,6 +203,22 @@ Transform:
   - {fileID: 4292404430711704542}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5896677265725365249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302098150394720686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571d0a598ceac9742a97f64b188b9208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: 02000000020000000200000002000000
+  numCoin: 1
+  numBullet: 5
+  playerPosition: {x: -7, y: -3, z: 0}
 --- !u!1001 &307630647633410894
 PrefabInstance:
   m_ObjectHideFlags: 0

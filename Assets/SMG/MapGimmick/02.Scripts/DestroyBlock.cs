@@ -13,14 +13,18 @@ public class DestroyBlock : MonoBehaviour
             // 레이어 예외처리
             //if (collision.gameObject.layer == LayerMask.NameToLayer(layerInvincible))
             //    Break;
+
             Destroy(collision.gameObject);
-            Invoke("MakeIt", 2f);
+            Invoke("MakeBullet", 2f);
         }
     }
 
-    private void MakeIt()
+    private void MakeBullet()
     {
-        PlayerController.Instance.MakeIt();
+        PlayerController.Instance.MakeBullet();
+        PlayerController.Instance.isBulletSelected = false;
+        PlayerController.Instance.selectAvailable = true;
+        PlayerController.Instance.bulletDestroyed = true;
     }
 
 }

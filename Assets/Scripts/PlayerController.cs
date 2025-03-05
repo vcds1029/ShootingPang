@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
 
         //bulletPossess = 5; // Temp bullet 
-        UpdateBulletPossess();
+        //UpdateBulletPossess();
 
         bulletDestroyed = false;
     }
@@ -50,9 +50,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SelectItemEvent();
+        SelectRetryEvent();
     }
 
-    public void MakeIt()
+    public void MakeBullet()
     {
         Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
     }
@@ -90,6 +91,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SelectRetryEvent()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.RetryNow();
+        }
+    }
+
     public void UpdateBulletPossess()
     {
         bulletText.text = "Rest Bullet: \n";
@@ -100,5 +109,21 @@ public class PlayerController : MonoBehaviour
     {
         bulletPossess--;
         UpdateBulletPossess();
+
+        if (bulletPossess == 0)
+        {
+            GameManager.Instance.NoBullet();
+        }
+    }
+
+    public void InitBullet(int numBullet)
+    {
+        bulletPossess = numBullet;
+        UpdateBulletPossess();
+    }
+
+    public void InitPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
     }
 }
