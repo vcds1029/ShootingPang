@@ -9,12 +9,12 @@ using UnityEngine.UI;
 
 public enum Item
 {
-    Bomb = 0,           // 폭탄: 일정 범위 내 아이템 획득
-    Magnet = 1,         // 자석: 일정 범위 내 아이템 당기기
-    AirBomb = 2,        // 밀치기: 일정 범위 내 아이템 밀치기
-    Imotal = 3,         // 무적: 특정 기믹 회피
-    ZeroGravity = 4,    // 무중력: 특정 기믹 회피
-    Cleaner = 5         // 세정제: 특정 기믹 회피
+    Bomb = 0,               // 폭탄: 일정 범위 내 아이템 획득
+    Magnet = 1,             // 자석: 일정 범위 내 아이템 당기기
+    KnockBack = 2,        // 밀치기: 일정 범위 내 아이템 밀치기
+    Imotal = 3,             // 무적: 특정 기믹 회피
+    Cleaner = 4,             // 세정제: 특정 기믹 회피
+    ZeroGravity = 5      // 무중력: 특정 기믹 회피
 }
 
 
@@ -22,12 +22,10 @@ public class ItemController : MonoBehaviour
 {
     public static ItemController Instance { get; private set; }
 
-    [SerializeField] private List<Button> itemButtons;
-    [SerializeField] private int[] items;
-
     [SerializeField] private List<Image> itemImage;
+    [SerializeField] public int[] items;
 
-    private string[] itemStr = { "Bomb", "Magnet", "AirBomb", "Imotal", "ZeroGravity", "Cleaner", "Empty" };
+    private string[] itemStr = { "Bomb", "Magnet", "KnockBack", "Imotal", "Cleaner", "ZeroGravity"};
 
 
     private void Awake()
@@ -44,40 +42,20 @@ public class ItemController : MonoBehaviour
 
     void Start()
     {
-        InitItem();
+        //InitItem();
         ShowItem();
     }
 
 
     private void InitItem()
     {
-        //for (int i = 0; i < items.Length; i++)
-        //{
-        //    items[i] = 2;
-        //}
-        items[0] = 2;
-        items[1] = 2; // Magnet Test
+        items[(int)Item.Bomb] = 2;
+        items[(int)Item.Magnet] = 2; 
+        items[(int)Item.KnockBack] = 2; 
     }
 
-    private void ShowItem()
+    public void ShowItem()
     {
-        // Function on Buttons
-        //for (int i = 0; i < itemButtons.Count; i++)
-        //{
-        //    TextMeshProUGUI buttonText = itemButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-        //    if (buttonText != null)
-        //    {
-        //        if (items[i] == 0)
-        //        {
-        //            buttonText.text = "X";
-        //        }
-        //        else
-        //        {
-        //            buttonText.text = itemStr[i] + "\n" + items[i].ToString();
-        //        }
-        //    }
-        //}
-
         // Function on Image
         for (int i = 0; i < itemImage.Count; i++)
         {

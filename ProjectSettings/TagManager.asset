@@ -10,6 +10,7 @@ TagManager:
   - Bomb
   - Wall
   - Coin
+  - Explosion
   layers:
   - Default
   - TransparentFX

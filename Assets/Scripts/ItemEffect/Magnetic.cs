@@ -12,7 +12,7 @@ public class Magnetic : MonoBehaviour
         RaycastHit2D[] targets2D = Physics2D.CircleCastAll(transform.position, radius, Vector2.up, 0, layerMask);
         
         
-        Debug.Log(targets2D.Length);
+        //Debug.Log(targets2D.Length);
 
         foreach (RaycastHit2D target2D in targets2D)
         {

@@ -6,8 +6,9 @@ public class Coin : MonoBehaviour
     {
         if (collision.transform.CompareTag("Bullet"))
         {
-            GameManager.Instance.AddScore(1);
-            gameObject.SetActive(false);
+            //GameManager.Instance.AddScore(1);
+            GameManager.Instance.GainCoin();
+            Destroy(gameObject);
         }
     }
 }
