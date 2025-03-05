@@ -3,10 +3,14 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     Rigidbody2D _rigid2D;
+    SpriteRenderer _sprite;
+
+    float changeTime;
 
     private void Start()
     {
         _rigid2D = GetComponent<Rigidbody2D>();
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
