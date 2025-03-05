@@ -6,10 +6,13 @@ public class Magnetic : MonoBehaviour
     [SerializeField] LayerMask layerMask;
 
     //타겟 당기기
-    void Pull()
+    public void Pull()
     {
         //스캔된 오브젝트들
         RaycastHit2D[] targets2D = Physics2D.CircleCastAll(transform.position, radius, Vector2.up, 0, layerMask);
+        
+        
+        Debug.Log(targets2D.Length);
 
         foreach (RaycastHit2D target2D in targets2D)
         {

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MasterPortalBlock : MonoBehaviour
@@ -8,7 +9,7 @@ public class MasterPortalBlock : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.GetInstanceID
+        //gameObject.GetInstanceID();
     }
 
     // Update is called once per frame

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,6 +7,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject BulletPrefab;
     public bool isBulletSelected = false;
+
+    private ItemController itemController;
+    public int selectedItem;
+    public bool selectAvailable;
+
 
 
     private void Awake()
@@ -25,7 +31,16 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        itemController = ItemController.Instance;
+        selectAvailable = true;
+        selectedItem = -1;
+
         Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
+    }
+
+    private void Update()
+    {
+        SelectItemEvent();
     }
 
     public void MakeIt()
@@ -36,9 +51,34 @@ public class PlayerController : MonoBehaviour
 
     public void UseItem(int item)
     {
-        if (ItemController.Instance.ItemUsed(item))
+        if (itemController.UseItem(item))
         {
-            isBulletSelected = true;
+            isBulletSelected = false;
+        }
+        selectedItem = -1;
+    }
+
+
+    private void SelectItemEvent()
+    {
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (Input.GetKeyDown((KeyCode)(KeyCode.Alpha1 + i)) && selectAvailable && itemController.IsItemRemain(i))
+            {
+                Debug.Log($"SelectItemEvent called {i}");
+                //if (selectedItem == i)
+                //{
+                //    selectedItem = -1;
+                //    itemController.UnSelectItem();
+                //}
+                //else
+                //{
+                selectedItem = i;
+                itemController.SelectItem(i);
+                isBulletSelected = true;
+                //}
+            }
         }
     }
 }

@@ -25,7 +25,9 @@ public class ItemController : MonoBehaviour
     [SerializeField] private List<Button> itemButtons;
     [SerializeField] private int[] items;
 
-    private string[] itemStr = { "Normal", "Bomb", "Magnet", "AirBomb", "Imotal", "ZeroGravity", "Cleaner" };
+    [SerializeField] private List<Image> itemImage;
+
+    private string[] itemStr = { "Bomb", "Magnet", "AirBomb", "Imotal", "ZeroGravity", "Cleaner", "Empty" };
 
 
     private void Awake()
@@ -59,25 +61,45 @@ public class ItemController : MonoBehaviour
 
     private void ShowItem()
     {
-        for (int i = 0; i < itemButtons.Count; i++)
+        // Function on Buttons
+        //for (int i = 0; i < itemButtons.Count; i++)
+        //{
+        //    TextMeshProUGUI buttonText = itemButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+        //    if (buttonText != null)
+        //    {
+        //        if (items[i] == 0)
+        //        {
+        //            buttonText.text = "X";
+        //        }
+        //        else
+        //        {
+        //            buttonText.text = itemStr[i] + "\n" + items[i].ToString();
+        //        }
+        //    }
+        //}
+
+        // Function on Image
+        for (int i = 0; i < itemImage.Count; i++)
         {
-            TextMeshProUGUI buttonText = itemButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            if (buttonText != null)
+            TextMeshProUGUI imageText = itemImage[i].GetComponentInChildren<TextMeshProUGUI>();
+            if (imageText != null)
             {
                 if (items[i] == 0)
                 {
-                    buttonText.text = "X";
+                    imageText.text = "X";
                 }
                 else
                 {
-                    buttonText.text = itemStr[i] + "\n" + items[i].ToString();
+                    imageText.text = itemStr[i] + "\n" + items[i].ToString();
                 }
             }
         }
     }
 
-    public bool ItemUsed(int item)
+    public bool UseItem(int item)
     {
+        if (item == -1) return true;
+
         if (items[item] > 0)
         {
             items[item]--;
@@ -87,6 +109,37 @@ public class ItemController : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void SelectItem(int item)
+    {
+        ClearSelectItem();
+        itemImage[item].color = Color.cyan;
+    }
+
+    public void UnSelectItem()
+    {
+        ClearSelectItem();
+    }
+
+    public void ClearSelectItem()
+    {
+        foreach (Image img in itemImage)
+        {
+            img.color = Color.white;
+        }
+    }
+
+    public bool IsItemRemain(int item)
+    {
+        if (items[item] == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 }

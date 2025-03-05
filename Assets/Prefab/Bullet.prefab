@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6511121839657446398}
   - component: {fileID: 488540098305884063}
   - component: {fileID: 3593769871861150070}
-  - component: {fileID: 5985761516582522136}
   - component: {fileID: 7358019848253800165}
+  - component: {fileID: 5985761516582522136}
+  - component: {fileID: 1602863455678597158}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -154,25 +155,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &5985761516582522136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125207926554629986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb439b2293cdcea499215bb2449dd6c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxPower: 40
-  maxLineLength: 1.5
-  speedDamping: 0.98
-  stopThreshold: 0.1
-  backgroundHitSound: {fileID: 0}
-  pointCollectSound: {fileID: 0}
-  bombCollectSound: {fileID: 0}
 --- !u!82 &7358019848253800165
 AudioSource:
   m_ObjectHideFlags: 0
@@ -270,3 +252,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5985761516582522136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125207926554629986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb439b2293cdcea499215bb2449dd6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPower: 40
+  maxLineLength: 1.5
+  speedDamping: 0.98
+  stopThreshold: 0.1
+  backgroundHitSound: {fileID: 0}
+  pointCollectSound: {fileID: 0}
+  bombCollectSound: {fileID: 0}
+--- !u!114 &1602863455678597158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125207926554629986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e6f64ed21ccfb4bb80417225f77f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295

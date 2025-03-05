@@ -19,6 +19,7 @@ public class BulletController : MonoBehaviour
     private LineRenderer lineRenderer;
     private AudioSource audioSource;
 
+    private bool isStarted;
 
 
     void Start()
@@ -38,6 +39,8 @@ public class BulletController : MonoBehaviour
         audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 0;
+
+        isStarted = false;
     }
 
     void Update()
@@ -46,10 +49,11 @@ public class BulletController : MonoBehaviour
 
         if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.CanShoot())
         {
-            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.isBulletSelected)
+            if (Input.GetMouseButtonDown(0)) // && PlayerController.Instance.isBulletSelected)
             {
                 isDragging = true;
                 lineRenderer.enabled = true;
+                PlayerController.Instance.selectAvailable = false;
             }
 
             if (isDragging)
@@ -68,6 +72,7 @@ public class BulletController : MonoBehaviour
             {
                 isDragging = false;
                 releasePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                isStarted = true;
 
                 Vector2 dragDistance = (Vector2)transform.position - releasePosition;
                 float dragMagnitude = Mathf.Min(dragDistance.magnitude, maxLineLength);
@@ -77,7 +82,29 @@ public class BulletController : MonoBehaviour
                 lineRenderer.enabled = false;
                 GameManager.Instance.UseShot();
 
-                Invoke("DestroyBullet", 2f);
+                Invoke("DestroyBullet", 3f);
+                ItemController.Instance.ClearSelectItem();
+                //ItemController.Instance.UseItem(PlayerController.Instance.selectedItem
+            }
+
+            if (isStarted && rb.linearVelocity == Vector2.zero)
+            {
+                
+
+                Debug.Log($"Item Doing: {PlayerController.Instance.selectedItem}");
+
+                switch(PlayerController.Instance.selectedItem)
+                {
+                    case 1:
+                        GetComponent<Magnetic>().Pull();
+                        break;
+                    default:
+                        break;
+                }
+
+                PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
+
+                isStarted = false;
             }
         }
     }
@@ -87,6 +114,7 @@ public class BulletController : MonoBehaviour
         Destroy(gameObject);
         PlayerController.Instance.MakeIt();
         PlayerController.Instance.isBulletSelected = false;
+        PlayerController.Instance.selectAvailable = true;
     }
 
     void FixedUpdate()

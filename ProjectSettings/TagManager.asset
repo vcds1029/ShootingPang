@@ -4,13 +4,12 @@
 TagManager:
   serializedVersion: 3
   tags:
-ItemController
-  - Point
-  - Wall
-  - Bomb
   - BackGround
-main
   - Bullet
+  - Point
+  - Bomb
+  - Wall
+  - Coin
   layers:
   - Default
   - TransparentFX
