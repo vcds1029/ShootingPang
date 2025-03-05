@@ -25,7 +25,8 @@ public class ItemController : MonoBehaviour
     [SerializeField] private List<Image> itemImage;
     [SerializeField] public int[] items;
 
-    private string[] itemStr = { "Bomb", "Magnet", "KnockBack", "Imotal", "Cleaner", "ZeroGravity"};
+    private string[] itemStr = { "Bomb", "Magnet", "KnockBack", "Imotal" };
+            // , "Cleaner", "ZeroGravity"};
 
 
     private void Awake()
@@ -42,16 +43,7 @@ public class ItemController : MonoBehaviour
 
     void Start()
     {
-        //InitItem();
         ShowItem();
-    }
-
-
-    private void InitItem()
-    {
-        items[(int)Item.Bomb] = 2;
-        items[(int)Item.Magnet] = 2; 
-        items[(int)Item.KnockBack] = 2; 
     }
 
     public void ShowItem()
@@ -119,6 +111,15 @@ public class ItemController : MonoBehaviour
         {
             return true;
         }
+    }
+
+    public void InitItem(int[] itemNums)
+    {
+        items[(int)Item.Bomb] = itemNums[(int)Item.Bomb];
+        items[(int)Item.Magnet] = itemNums[(int)Item.Magnet];
+        items[(int)Item.KnockBack] = itemNums[(int)Item.KnockBack];
+        items[(int)Item.Imotal] = itemNums[(int)Item.Imotal];
+        ShowItem();
     }
 }
 
