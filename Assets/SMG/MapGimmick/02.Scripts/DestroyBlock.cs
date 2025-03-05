@@ -18,8 +18,8 @@ public class DestroyBlock : MonoBehaviour
             // 레이어 예외처리
             //if (collision.gameObject.layer == LayerMask.NameToLayer(layerInvincible))
             //    Break;
-            Destroy(collision.gameObject);
             MakeBullet();
+            Destroy(collision.gameObject);
         }
     }
 

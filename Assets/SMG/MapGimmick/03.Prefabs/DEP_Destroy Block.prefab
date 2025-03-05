@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4962329926561964853}
   - component: {fileID: 1088915024582560661}
   m_Layer: 0
-  m_Name: Destroy Block
+  m_Name: DEP_Destroy Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2085798170639301005}
+  - {fileID: 1729072684894161762}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &827228296319459725
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.023584902, b: 0.023584902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -148,8 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e164d858e408b846bc6c3c8fc90fe6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfx: {fileID: 8300000, guid: 5f241e7776dbbce4182f398ecad8b753, type: 3}
---- !u!1001 &6995853862111820879
+--- !u!1001 &7645594931965709984
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -218,8 +217,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b136648c2896d94d80ea38594411ca4, type: 3}
---- !u!4 &2085798170639301005 stripped
+--- !u!4 &1729072684894161762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9071510132325959106, guid: 8b136648c2896d94d80ea38594411ca4, type: 3}
-  m_PrefabInstance: {fileID: 6995853862111820879}
+  m_PrefabInstance: {fileID: 7645594931965709984}
   m_PrefabAsset: {fileID: 0}
