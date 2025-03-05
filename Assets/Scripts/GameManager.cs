@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         currentStage = 0;
         //PrepareStage(currentStage);
         //stages[currentStage].SetActive(true);
-        currentStageObject = Instantiate(stages[currentStage]);
+        currentStageObject = Instantiate(stages[currentStage]); 
         isGameProceed = true;
     }
 
@@ -159,8 +159,10 @@ public class GameManager : MonoBehaviour
 
     public void RetryNow()
     {
+        Panels[(int)Panel.gameOver].SetActive(false);
         Destroy(currentStageObject);
         currentStageObject = Instantiate(stages[currentStage]);
+        isGameProceed = true;
     }
 
 

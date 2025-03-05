@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -20,6 +22,8 @@ public class BulletController : MonoBehaviour
     private AudioSource audioSource;
 
     private bool isStarted;
+
+    [SerializeField] public List<GameObject> itemParticles;
 
 
     void Start()
@@ -96,12 +100,15 @@ public class BulletController : MonoBehaviour
                 {
                     case 0:
                         GetComponent<Bomb>().UseBomb();
+                        itemParticles[0].SetActive(true);
                         break;
                     case 1:
                         GetComponent<Magnetic>().Pull();
+                        itemParticles[1].SetActive(true);
                         break;
                     case 2:
                         GetComponent<KnockBack>().Push();
+                        itemParticles[2].SetActive(true);
                         break;
                     default:
                         break;

@@ -243,9 +243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: 05000000050000000500000005000000
-  numCoin: 1
+  numCoin: 3
   numBullet: 10
-  playerPosition: {x: -7.13, y: 3.16, z: 0}
+  playerPosition: {x: -6.99, y: 0, z: 0}
+  cameraSize: 5
 --- !u!1 &6985030868092669019
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ public class StageSettings : MonoBehaviour
 
     [SerializeField] private Vector3 playerPosition;
 
+    [SerializeField] private int cameraSize;
+
 
     private void Awake()
     {
@@ -44,6 +46,8 @@ public class StageSettings : MonoBehaviour
 
         //PlayerController.Instance.gameObject.transform.position = PlayerPosition;
         PlayerController.Instance.InitPosition(playerPosition);
+
+        Camera.main.orthographicSize = cameraSize;
     }
 
     public int GetCoinNum()

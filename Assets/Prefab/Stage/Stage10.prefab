@@ -83,7 +83,8 @@ MonoBehaviour:
   items: 05000000050000000500000005000000
   numCoin: 1
   numBullet: 10
-  playerPosition: {x: -7.13, y: 3.16, z: 0}
+  playerPosition: {x: -5.5, y: 2.5, z: 0}
+  cameraSize: 5
 --- !u!1 &8066573023727825031
 GameObject:
   m_ObjectHideFlags: 0

@@ -215,10 +215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571d0a598ceac9742a97f64b188b9208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: 02000000020000000200000002000000
+  items: 05000000020000000200000002000000
   numCoin: 1
   numBullet: 5
   playerPosition: {x: -7, y: -3, z: 0}
+  cameraSize: 5
 --- !u!1001 &307630647633410894
 PrefabInstance:
   m_ObjectHideFlags: 0

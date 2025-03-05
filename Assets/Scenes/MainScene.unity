@@ -2122,8 +2122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stages:
-  - {fileID: 4702263264244236340, guid: 84c9cbb567d844b4b886be8eb46a71a4, type: 3}
+  - {fileID: 6327510234879330368, guid: 8d4fd0022df56904fac966210808fe90, type: 3}
+  - {fileID: 4135543757843659077, guid: 8582ae84a668ef74b8c0b436699924ee, type: 3}
   - {fileID: 4302098150394720686, guid: 3b81d19bc8d099e439b8449a306a6a65, type: 3}
+  - {fileID: 4702263264244236340, guid: 84c9cbb567d844b4b886be8eb46a71a4, type: 3}
   coinText: {fileID: 2030951985}
   remainCoin: 0
   Panels:
@@ -2163,7 +2165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1469307845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2363,7 +2365,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1469297006}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RetryStage
+        m_MethodName: RetryNow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3043,7 +3045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1825089126
 RectTransform:
   m_ObjectHideFlags: 0
