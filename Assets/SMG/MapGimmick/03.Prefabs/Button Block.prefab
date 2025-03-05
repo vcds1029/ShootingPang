@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPush: 0
+  sfx: {fileID: 8300000, guid: a343337bba2891045a1b88fde2b75c3b, type: 3}

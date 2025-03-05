@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterPortal: {fileID: 0}
   OutPortal: {fileID: 7246728088972218964}
-  isOut: 0
+  sfx: {fileID: 8300000, guid: fe5954982476f184891d37c46eff7d38, type: 3}
 --- !u!1 &5892432092381383268
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterPortal: {fileID: 0}
   OutPortal: {fileID: 3537937329598016243}
-  isOut: 0
+  sfx: {fileID: 8300000, guid: fe5954982476f184891d37c46eff7d38, type: 3}
 --- !u!1 &7707452742804230040
 GameObject:
   m_ObjectHideFlags: 0
