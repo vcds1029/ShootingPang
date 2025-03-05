@@ -41,19 +41,21 @@ public class BulletController : MonoBehaviour
         audioSource.spatialBlend = 0;
 
         isStarted = false;
+        
     }
 
     void Update()
     {
         if (GameManager.Instance == null) return;
 
-        if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.CanShoot())
+        if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.isGameProceed)
         {
             if (Input.GetMouseButtonDown(0)) // && PlayerController.Instance.isBulletSelected)
             {
                 isDragging = true;
                 lineRenderer.enabled = true;
                 PlayerController.Instance.selectAvailable = false;
+                PlayerController.Instance.bulletDestroyed = false;
             }
 
             if (isDragging)
@@ -84,19 +86,22 @@ public class BulletController : MonoBehaviour
 
                 Invoke("DestroyBullet", 3f);
                 ItemController.Instance.ClearSelectItem();
+                PlayerController.Instance.BulletUsed();
                 //ItemController.Instance.UseItem(PlayerController.Instance.selectedItem
             }
 
             if (isStarted && rb.linearVelocity == Vector2.zero)
             {
-                
-
-                Debug.Log($"Item Doing: {PlayerController.Instance.selectedItem}");
-
                 switch(PlayerController.Instance.selectedItem)
                 {
+                    case 0:
+                        GetComponent<Bomb>().UseBomb();
+                        break;
                     case 1:
                         GetComponent<Magnetic>().Pull();
+                        break;
+                    case 2:
+                        GetComponent<KnockBack>().Push();
                         break;
                     default:
                         break;
@@ -115,6 +120,7 @@ public class BulletController : MonoBehaviour
         PlayerController.Instance.MakeIt();
         PlayerController.Instance.isBulletSelected = false;
         PlayerController.Instance.selectAvailable = true;
+        PlayerController.Instance.bulletDestroyed = true;
     }
 
     void FixedUpdate()

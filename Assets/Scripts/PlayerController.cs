@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public int selectedItem;
     public bool selectAvailable;
 
+    [SerializeField] private TextMeshProUGUI bulletText;
+    public int bulletPossess;
+    public bool bulletDestroyed;
 
 
     private void Awake()
@@ -36,6 +40,11 @@ public class PlayerController : MonoBehaviour
         selectedItem = -1;
 
         Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
+
+        //bulletPossess = 5; // Temp bullet 
+        UpdateBulletPossess();
+
+        bulletDestroyed = false;
     }
 
     private void Update()
@@ -66,19 +75,30 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown((KeyCode)(KeyCode.Alpha1 + i)) && selectAvailable && itemController.IsItemRemain(i))
             {
-                Debug.Log($"SelectItemEvent called {i}");
-                //if (selectedItem == i)
-                //{
-                //    selectedItem = -1;
-                //    itemController.UnSelectItem();
-                //}
-                //else
-                //{
-                selectedItem = i;
+                if (selectedItem == i)
+                {
+                    selectedItem = -1;
+                    itemController.UnSelectItem();
+                }
+                else
+                {
+                    selectedItem = i;
                 itemController.SelectItem(i);
                 isBulletSelected = true;
-                //}
+                }
             }
         }
+    }
+
+    public void UpdateBulletPossess()
+    {
+        bulletText.text = "Rest Bullet: \n";
+        bulletText.text += $"X {bulletPossess}";
+    }
+
+    public void BulletUsed()
+    {
+        bulletPossess--;
+        UpdateBulletPossess();
     }
 }
