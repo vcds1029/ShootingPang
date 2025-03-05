@@ -443,4 +443,4 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  pushPower: 100
+  pushPower: 50000
