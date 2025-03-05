@@ -2,7 +2,23 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    Rigidbody2D _rigid2D;
+
+    private void Start()
+    {
+        _rigid2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        //속도 점차 감소
+        if (_rigid2D.linearVelocity != Vector2.zero)
+        {
+            _rigid2D.linearVelocity -= _rigid2D.linearVelocity * Time.deltaTime;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Bullet"))
         {

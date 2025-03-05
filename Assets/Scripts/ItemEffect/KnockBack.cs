@@ -23,7 +23,7 @@ public class KnockBack : MonoBehaviour
 
         foreach (RaycastHit2D target2D in targets2D)
         {
-            if (target2D.transform.CompareTag("Wall"))
+            if (target2D.transform.CompareTag("Block"))
             {
                 Vector2 dir = target2D.transform.position - transform.position;
                 dir = dir.normalized;
