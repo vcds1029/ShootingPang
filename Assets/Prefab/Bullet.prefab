@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 738781769750596134}
   - component: {fileID: 3251222453759751767}
   - component: {fileID: 883236355753560788}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ExplosionRange
   m_TagString: Explosion
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 9214070382649802499}
   - component: {fileID: 1602863455678597158}
   - component: {fileID: 7118411641221700709}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -509,6 +509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KnockBack Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 3327960959370356077, guid: 80bda3c28da349842b8cb7dc625d136a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -576,6 +580,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magnetic Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 3327960959370356077, guid: b05956c3ad32aec47b76d19679054ec3, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -602,6 +610,10 @@ PrefabInstance:
     - target: {fileID: 6220922217065151016, guid: a62ab031bb31d9c42bc75ecbc04cf5ec, type: 3}
       propertyPath: m_Name
       value: Bomb Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220922217065151016, guid: a62ab031bb31d9c42bc75ecbc04cf5ec, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8856928406546441228, guid: a62ab031bb31d9c42bc75ecbc04cf5ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -669,6 +681,10 @@ PrefabInstance:
     - target: {fileID: 956085436676653167, guid: 8c34b918997cbe942b8231336f03e8dd, type: 3}
       propertyPath: m_Name
       value: Invincibla Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 956085436676653167, guid: 8c34b918997cbe942b8231336f03e8dd, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 956085436676653167, guid: 8c34b918997cbe942b8231336f03e8dd, type: 3}
       propertyPath: m_IsActive

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8254823209825134711}
   - component: {fileID: 6907908928748121177}
   - component: {fileID: 7244236760093041904}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 2670428440219390975}
   - component: {fileID: 8132683448177417214}
   - component: {fileID: 4427282880192336105}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Eat
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5950547071364970514}
   - component: {fileID: 6985028676269597955}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -390,6 +390,10 @@ PrefabInstance:
     - target: {fileID: 4822629737917378736, guid: dcaea962c13c1ff4db4827e367ec7279, type: 3}
       propertyPath: m_Name
       value: Sparkle Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822629737917378736, guid: dcaea962c13c1ff4db4827e367ec7279, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
