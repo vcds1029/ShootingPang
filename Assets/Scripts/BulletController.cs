@@ -14,6 +14,9 @@ public class BulletController : MonoBehaviour
     public AudioClip backgroundHitSound;
     public AudioClip pointCollectSound;
     public AudioClip bombCollectSound;
+    public AudioClip bombSfx;
+    public AudioClip magneticSfx;
+    public AudioClip knockBackSfx;
 
     private Rigidbody2D rb;
     private bool isDragging = false;
@@ -124,14 +127,17 @@ public class BulletController : MonoBehaviour
                     case 0:
                         GetComponent<Bomb>().UseBomb();
                         itemParticles[0].SetActive(true);
+                        SoundsPlayer.Instance.PlaySFX(bombSfx, 0.8f, 1f);
                         break;
                     case 1:
                         GetComponent<Magnetic>().Pull();
                         itemParticles[1].SetActive(true);
+                        SoundsPlayer.Instance.PlaySFX(magneticSfx);
                         break;
                     case 2:
                         GetComponent<KnockBack>().Push();
                         itemParticles[2].SetActive(true);
+                        SoundsPlayer.Instance.PlaySFX(knockBackSfx);
                         break;
                     default:
                         break;
@@ -168,7 +174,7 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("BackGround") || collision.gameObject.CompareTag("Wall")) && backgroundHitSound != null)
+        if ((collision.gameObject.CompareTag("BackGround") || collision.gameObject.CompareTag("Block")) && backgroundHitSound != null)
         {
             audioSource.PlayOneShot(backgroundHitSound);
         }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SoundsPlayer : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class SoundsPlayer : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 유지됨
+            //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 유지됨
         }
         else
         {
@@ -25,20 +26,19 @@ public class SoundsPlayer : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySFX(AudioClip sfx, float volume)
     {
-        
+        audio.PlayOneShot(sfx, volume);
     }
-
+    
     public void PlaySFX(AudioClip sfx)
     {
-        audio.PlayOneShot(sfx);
+        PlaySFX(sfx, 0.8f);
     }
 
-    public void PlaySFX(AudioClip sfx, float time)
+    public void PlaySFX(AudioClip sfx, float volume, float time)
     {
-        audio.PlayOneShot(sfx);
+        PlaySFX(sfx, volume);
         Invoke("StopPlay", time);
     }
 

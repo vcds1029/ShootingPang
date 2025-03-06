@@ -399,14 +399,18 @@ MonoBehaviour:
   maxLineLength: 1.5
   speedDamping: 0.98
   stopThreshold: 0.1
-  backgroundHitSound: {fileID: 0}
+  backgroundHitSound: {fileID: 8300000, guid: 87632691685be9e41b71667b04bbf16b, type: 3}
   pointCollectSound: {fileID: 0}
   bombCollectSound: {fileID: 0}
+  bombSfx: {fileID: 8300000, guid: 203c1a305747d7e4285259e1dd56fe03, type: 3}
+  magneticSfx: {fileID: 8300000, guid: da23ab6b203788f4e81c41bf23eda5fe, type: 3}
+  knockBackSfx: {fileID: 8300000, guid: 206d6f460aa9ca741826bfc9c54549d6, type: 3}
   itemParticles:
   - {fileID: 82923702970156498}
   - {fileID: 1928637670029067074}
   - {fileID: 3481681010924755041}
   - {fileID: 7094040136942508624}
+  isDestroyed: 0
 --- !u!114 &9214070382649802499
 MonoBehaviour:
   m_ObjectHideFlags: 0

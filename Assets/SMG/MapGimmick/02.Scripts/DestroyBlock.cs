@@ -14,7 +14,7 @@ public class DestroyBlock : MonoBehaviour
         if(collision.CompareTag(tagBullet))
         {
             float playSFXTime = 1f;
-            SoundsPlayer.Instance.PlaySFX(sfx, playSFXTime);
+            SoundsPlayer.Instance.PlaySFX(sfx, 0.8f ,playSFXTime);
 
             // 레이어 예외처리
             //if (collision.gameObject.layer == LayerMask.NameToLayer(layerInvincible))
