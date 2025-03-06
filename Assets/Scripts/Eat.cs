@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class Eat : MonoBehaviour
 {
+    public AudioClip sfx;
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.transform.CompareTag("Bullet"))
         {
             GameManager.Instance.GainCoin();
             Destroy(transform.parent.gameObject);
+
+            SoundsPlayer.Instance.PlaySFX(sfx);
         }
     }
 
