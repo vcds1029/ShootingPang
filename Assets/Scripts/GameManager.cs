@@ -42,10 +42,13 @@ public class GameManager : MonoBehaviour
 
     public bool isGameProceed;
     public bool isGameReset;
+   
 
     private GameObject currentStageObject;
 
     public bool canRetry;
+    private bool isStageEnd;
+    public int bulletUsed;
 
 
     private void Awake()
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour
         currentStageObject = Instantiate(stages[currentStage]); 
         isGameProceed = true;
         canRetry = true;
+        isStageEnd = false;
     }
 
     private void Update()
@@ -113,6 +117,10 @@ public class GameManager : MonoBehaviour
     {
         if (currentStage == 3)
         {
+            foreach (GameObject panel in Panels)
+            {
+                panel.SetActive(false);
+            }
             Panels[(int)Panel.gameEnd].SetActive(true);
         }
         else
@@ -165,6 +173,23 @@ public class GameManager : MonoBehaviour
     {
         if (remainCoin != 0)
         {
+            isStageEnd = true;
+            StartCoroutine(LateRetry(2.0f));
+        }
+    }
+
+    private IEnumerator LateRetry(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        if (remainCoin == 0)
+        {
+            isGameProceed = false;
+            //NextStage();
+            Panels[(int)Panel.nextStage].SetActive(true);
+        }
+        else
+        {
+            isGameProceed = false;
             RetryStage();
         }
     }
@@ -174,6 +199,8 @@ public class GameManager : MonoBehaviour
     {
         if (canRetry)
         {
+            StopAllCoroutines();
+
             Panels[(int)Panel.gameOver].SetActive(false);
             Destroy(currentStageObject);
             currentStageObject = Instantiate(stages[currentStage]);
@@ -185,6 +212,9 @@ public class GameManager : MonoBehaviour
             PlayerController.Instance.MakeBullet();
             ItemController.Instance.UnSelectItem();
             PlayerController.Instance.selectedItem = -1;
+            PlayerController.Instance.isPlayAvailable = true;
+
+            isStageEnd = false;
         }
     }
 

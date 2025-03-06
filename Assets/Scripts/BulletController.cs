@@ -52,6 +52,8 @@ public class BulletController : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance == null) return;
+        //if (!PlayerController.Instance.bulletAvailable) return;
+
         if (GameManager.Instance.isGameReset)
         {
             Destroy(gameObject);
@@ -73,7 +75,7 @@ public class BulletController : MonoBehaviour
 
         if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.isGameProceed)
         {
-            if (Input.GetMouseButtonDown(0)) // && PlayerController.Instance.isBulletSelected)
+            if (Input.GetMouseButtonDown(0) && !isStarted && PlayerController.Instance.isPlayAvailable)
             {
                 isDragging = true;
                 lineRenderer.enabled = true;
@@ -81,7 +83,7 @@ public class BulletController : MonoBehaviour
                 PlayerController.Instance.bulletDestroyed = false;
             }
 
-            if (isDragging)
+            if (isDragging && !isStarted && PlayerController.Instance.isPlayAvailable)
             {
                 Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 dragVector = (Vector2)transform.position - currentMousePosition;
@@ -93,9 +95,9 @@ public class BulletController : MonoBehaviour
                 lineRenderer.SetPosition(1, limitedEndPosition);
             }
 
-            if (Input.GetMouseButtonUp(0) && isDragging && !isDestroyed)
+            if (Input.GetMouseButtonUp(0) && isDragging && !isDestroyed && !isStarted && PlayerController.Instance.isPlayAvailable)
             {
-                isDragging = false;
+                //isDragging = false;
                 releasePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isStarted = true;
 
@@ -137,7 +139,7 @@ public class BulletController : MonoBehaviour
 
                 PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
 
-                isStarted = false;
+                //isStarted = false;
             }
 
         }

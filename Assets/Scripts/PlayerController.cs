@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public int bulletPossess;
     public bool bulletDestroyed;
 
+    public bool isPlayAvailable;
+
 
     private void Awake()
     {
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 유지됨
+            //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 유지됨
         }
         else
         {
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
         //UpdateBulletPossess();
 
         bulletDestroyed = false;
+        isPlayAvailable = true;
     }
 
     private void Update()
@@ -113,7 +116,11 @@ public class PlayerController : MonoBehaviour
 
         if (bulletPossess == 0)
         {
-            StartCoroutine(LateCallNoBullet());
+            //bulletAvailable = false;
+            //StartCoroutine(LateCallNoBullet());
+
+            isPlayAvailable = false;
+            GameManager.Instance.NoBullet();
         }
     }
 
@@ -121,6 +128,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
         GameManager.Instance.NoBullet();
+        //bulletAvailable = true;
     }
 
     public void InitBullet(int numBullet)
