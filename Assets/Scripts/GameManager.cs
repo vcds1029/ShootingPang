@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour
 
     public void NextStage()
     {
+        StopAllCoroutines();
+
         if (currentStage == 3)
         {
             foreach (GameObject panel in Panels)
@@ -174,7 +176,7 @@ public class GameManager : MonoBehaviour
         if (remainCoin != 0)
         {
             isStageEnd = true;
-            StartCoroutine(LateRetry(2.0f));
+            StartCoroutine(LateRetry(4.0f));
         }
     }
 
