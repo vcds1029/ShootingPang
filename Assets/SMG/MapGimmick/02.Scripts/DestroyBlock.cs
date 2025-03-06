@@ -20,8 +20,11 @@ public class DestroyBlock : MonoBehaviour
             //if (collision.gameObject.layer == LayerMask.NameToLayer(layerInvincible))
             //    Break;
 
-            Destroy(collision.gameObject);
-            StartCoroutine(LateDestroy(collision));
+            //collision.gameObject.GetComponent<BulletController>().StopInvoke();
+
+            collision.gameObject.GetComponent<BulletController>().isDestroyed = true;
+            //Destroy(collision.gameObject);
+            //StartCoroutine(LateDestroy(collision));
         }
     }
 

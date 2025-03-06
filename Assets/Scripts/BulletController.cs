@@ -25,6 +25,7 @@ public class BulletController : MonoBehaviour
 
     [SerializeField] public List<GameObject> itemParticles;
 
+    public bool isDestroyed;
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class BulletController : MonoBehaviour
         audioSource.spatialBlend = 0;
 
         isStarted = false;
-        
+        isDestroyed = false;
     }
 
     void Update()
@@ -58,6 +59,16 @@ public class BulletController : MonoBehaviour
             PlayerController.Instance.selectAvailable = true;
             PlayerController.Instance.bulletDestroyed = true;
             GameManager.Instance.isGameReset = false;
+        }
+
+        if (isDestroyed)
+        {
+            //if (IsInvoking("DestroyBullet"))
+            //{
+            //    CancelInvoke("DestroyBullet");
+            //}
+            DestroyBullet();
+            PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
         }
 
         if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.isGameProceed)
@@ -82,7 +93,7 @@ public class BulletController : MonoBehaviour
                 lineRenderer.SetPosition(1, limitedEndPosition);
             }
 
-            if (Input.GetMouseButtonUp(0) && isDragging)
+            if (Input.GetMouseButtonUp(0) && isDragging && !isDestroyed)
             {
                 isDragging = false;
                 releasePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -102,9 +113,11 @@ public class BulletController : MonoBehaviour
                 //ItemController.Instance.UseItem(PlayerController.Instance.selectedItem
             }
 
-            if (isStarted && rb.linearVelocity == Vector2.zero)
+
+
+            if (isStarted && rb.linearVelocity == Vector2.zero && !isDestroyed)
             {
-                switch(PlayerController.Instance.selectedItem)
+                switch (PlayerController.Instance.selectedItem)
                 {
                     case 0:
                         GetComponent<Bomb>().UseBomb();
@@ -126,16 +139,20 @@ public class BulletController : MonoBehaviour
 
                 isStarted = false;
             }
+
         }
+
+
     }
+
 
     void DestroyBullet()
     {
-        Destroy(gameObject);
         PlayerController.Instance.MakeBullet();
         PlayerController.Instance.isBulletSelected = false;
         PlayerController.Instance.selectAvailable = true;
         PlayerController.Instance.bulletDestroyed = true;
+        Destroy(gameObject);
     }
 
     void FixedUpdate()
