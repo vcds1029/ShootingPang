@@ -7,15 +7,6 @@ public class KnockBack : MonoBehaviour
 
     [SerializeField] float pushPower;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Push();
-        }
-    }
-
-    //타겟 당기기
     public void Push()
     {
         //스캔된 오브젝트들

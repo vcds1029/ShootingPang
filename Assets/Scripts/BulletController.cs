@@ -122,7 +122,10 @@ public class BulletController : MonoBehaviour
 
             if (isStarted && rb.linearVelocity == Vector2.zero && !isDestroyed)
             {
-                switch (PlayerController.Instance.selectedItem)
+                    GetComponent<Magnetic>().Pull();
+                    SoundsPlayer.Instance.PlaySFX(magneticSfx);
+
+                    switch (PlayerController.Instance.selectedItem)
                 {
                     case 0:
                         GetComponent<Bomb>().UseBomb();
@@ -130,13 +133,8 @@ public class BulletController : MonoBehaviour
                         SoundsPlayer.Instance.PlaySFX(bombSfx, 0.8f, 1f);
                         break;
                     case 1:
-                        GetComponent<Magnetic>().Pull();
-                        itemParticles[1].SetActive(true);
-                        SoundsPlayer.Instance.PlaySFX(magneticSfx);
-                        break;
-                    case 2:
                         GetComponent<KnockBack>().Push();
-                        itemParticles[2].SetActive(true);
+                        itemParticles[1].SetActive(true);
                         SoundsPlayer.Instance.PlaySFX(knockBackSfx);
                         break;
                     default:
@@ -183,19 +181,5 @@ public class BulletController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (GameManager.Instance == null) return;
-
-        //vcds1029_PointObject pointObject = collision.GetComponent<vcds1029_PointObject>();
-
-        //if (pointObject != null)
-        //{
-        //    if (collision.CompareTag("Point") && pointCollectSound != null)
-        //        audioSource.PlayOneShot(pointCollectSound);
-        //    else if (collision.CompareTag("Bomb") && bombCollectSound != null)
-        //        audioSource.PlayOneShot(bombCollectSound);
-
-        //    GameManager.Instance.AddScore(pointObject.pointValue);
-        //    GameManager.Instance.ModifyShots(pointObject.shotBonus);
-        //    Destroy(collision.gameObject);
-        //}
     }
 }
