@@ -440,6 +440,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  powerMultiplier: 0.02
 --- !u!114 &7118411641221700709
 MonoBehaviour:
   m_ObjectHideFlags: 0
