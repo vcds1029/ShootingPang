@@ -10,11 +10,10 @@ using UnityEngine.UI;
 public enum Item
 {
     Bomb = 0,               // 폭탄: 일정 범위 내 아이템 획득
-    Magnet = 1,             // 자석: 일정 범위 내 아이템 당기기
-    KnockBack = 2,        // 밀치기: 일정 범위 내 아이템 밀치기
-    Imotal = 3,             // 무적: 특정 기믹 회피
-    Cleaner = 4,             // 세정제: 특정 기믹 회피
-    ZeroGravity = 5      // 무중력: 특정 기믹 회피
+    KnockBack = 1,        // 밀치기: 일정 범위 내 아이템 밀치기
+    Imotal = 2,             // 무적: 특정 기믹 회피
+    Cleaner = 3,             // 세정제: 특정 기믹 회피
+    ZeroGravity = 4      // 무중력: 특정 기믹 회피
 }
 
 
@@ -25,7 +24,7 @@ public class ItemController : MonoBehaviour
     [SerializeField] private List<Image> itemImage;
     [SerializeField] public int[] items;
 
-    private string[] itemStr = { "Bomb", "Magnet", "KnockBack", "Imotal" };
+    private string[] itemStr = { "Bomb","KnockBack","Imotal"};
             // , "Cleaner", "ZeroGravity"};
 
 
@@ -116,7 +115,6 @@ public class ItemController : MonoBehaviour
     public void InitItem(int[] itemNums)
     {
         items[(int)Item.Bomb] = itemNums[(int)Item.Bomb];
-        items[(int)Item.Magnet] = itemNums[(int)Item.Magnet];
         items[(int)Item.KnockBack] = itemNums[(int)Item.KnockBack];
         items[(int)Item.Imotal] = itemNums[(int)Item.Imotal];
         ShowItem();
