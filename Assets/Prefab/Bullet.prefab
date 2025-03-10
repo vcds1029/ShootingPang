@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &738781769750596134
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.25}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 8, y: 8, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1231773866808204920}
@@ -158,7 +158,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 738781769750596134}
@@ -235,7 +235,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -395,10 +395,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb439b2293cdcea499215bb2449dd6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPower: 100
-  maxLineLength: 1.5
-  speedDampingBase: 0.98
-  stopThreshold: 0.1
+  baseSpeed: 10
+  powerMultiplier: 145
+  powerExponent: 3
+  maxLineLength: 2
+  speedDampingBase: 0.01
+  stopThreshold: 0.05
   backgroundHitSound: {fileID: 8300000, guid: 87632691685be9e41b71667b04bbf16b, type: 3}
   pointCollectSound: {fileID: 0}
   bombCollectSound: {fileID: 0}
@@ -436,11 +438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e6f64ed21ccfb4bb80417225f77f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 7
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  powerMultiplier: 0.02
+  powerMultiplier: 1
 --- !u!114 &7118411641221700709
 MonoBehaviour:
   m_ObjectHideFlags: 0

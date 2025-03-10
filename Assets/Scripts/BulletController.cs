@@ -1,11 +1,13 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class BulletController : MonoBehaviour
 {
     [Header("Player Settings")]
-    public float maxPower = 40f;
+    public float baseSpeed = 10f;             // 기본 속도 값 (스피드)
+    public float powerMultiplier = 30f;       // 드래그에 따른 추가 속도 배율 (파워)
+    public float powerExponent = 1.5f;        // 파워 민감도 (지수)
     public float maxLineLength = 1.5f;
     public float speedDampingBase = 0.98f;
     public float stopThreshold = 0.1f;
@@ -25,18 +27,20 @@ public class BulletController : MonoBehaviour
     private AudioSource audioSource;
 
     private bool isStarted;
-    [SerializeField] public List<GameObject> itemParticles;
+    private bool hasUsedItem;
 
+    [SerializeField] public List<GameObject> itemParticles;
     public bool isDestroyed;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.linearDamping = 1.5f;
+        rb.drag = 0f;
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.2f;
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         lineRenderer.startColor = Color.green;
         lineRenderer.endColor = Color.white;
@@ -49,6 +53,7 @@ public class BulletController : MonoBehaviour
 
         isStarted = false;
         isDestroyed = false;
+        hasUsedItem = false;
     }
 
     void Update()
@@ -67,7 +72,6 @@ public class BulletController : MonoBehaviour
         if (isDestroyed)
         {
             DestroyBullet();
-            PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
         }
 
         if (rb.linearVelocity.magnitude < stopThreshold && GameManager.Instance.isGameProceed)
@@ -84,16 +88,14 @@ public class BulletController : MonoBehaviour
             {
                 Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 dragVector = (Vector2)transform.position - currentMousePosition;
-
                 float dragMagnitude = Mathf.Min(dragVector.magnitude, maxLineLength);
                 Vector2 limitedEndPosition = (Vector2)transform.position - dragVector.normalized * dragMagnitude;
-
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, limitedEndPosition);
 
-                // ** 드래그 세기에 따라 색상 변경 **
+                // 드래그 세기에 따라 색상 변경
                 float powerRatio = dragMagnitude / maxLineLength;
-                lineRenderer.startColor = GetPowerColor(powerRatio);
+                lineRenderer.startColor = Color.Lerp(Color.green, Color.red, powerRatio);
                 lineRenderer.endColor = Color.white;
             }
 
@@ -105,59 +107,28 @@ public class BulletController : MonoBehaviour
 
                 Vector2 dragDistance = (Vector2)transform.position - releasePosition;
                 float dragMagnitude = Mathf.Min(dragDistance.magnitude, maxLineLength);
-                
-                // **드래그 감도 조정 (powerFactor 적용)**
-                float powerFactor = 1.5f; 
-                float launchPower = Mathf.Pow(dragMagnitude / maxLineLength, powerFactor) * maxPower;
+                float ratio = dragMagnitude / maxLineLength;
 
-                rb.linearVelocity = dragDistance.normalized * launchPower;
+                // 기본 스피드와 드래그 거리에 따른 추가 파워를 분리하여 계산
+                float additionalSpeed = Mathf.Pow(ratio, powerExponent) * powerMultiplier;
+                float finalSpeed = baseSpeed + additionalSpeed;
+
+                rb.linearVelocity = dragDistance.normalized * finalSpeed;
                 lineRenderer.enabled = false;
                 GameManager.Instance.UseShot();
 
-                // **속도 감속 조정**
-                float dynamicDamping = Mathf.Clamp(speedDampingBase + (maxPower - launchPower) * 0.005f, 0.95f, 0.99f);
+                float dynamicDamping = Mathf.Clamp(speedDampingBase + (baseSpeed - finalSpeed) * 0.005f, 0.95f, 0.99f);
                 speedDampingBase = dynamicDamping;
 
-                Invoke("DestroyBullet", 3f);
-                //ItemController.Instance.ClearSelectItem();
                 PlayerController.Instance.BulletUsed();
             }
-
-            if (isStarted && rb.linearVelocity == Vector2.zero && !isDestroyed)
-            {
-                GetComponent<Magnetic>().Pull();
-                SoundsPlayer.Instance.PlaySFX(magneticSfx);
-
-                switch (PlayerController.Instance.selectedItem)
-                {
-                    case 0:
-                        GetComponent<Bomb>().UseBomb();
-                        itemParticles[0].SetActive(true);
-                        SoundsPlayer.Instance.PlaySFX(bombSfx, 0.8f, 1f);
-                        break;
-                    case 1:
-                        GetComponent<KnockBack>().Push();
-                        itemParticles[1].SetActive(true);
-                        SoundsPlayer.Instance.PlaySFX(knockBackSfx);
-                        break;
-                    default:
-                        break;
-                }
-
-                PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
-            }
         }
-    }
 
-    void DestroyBullet()
-    {
-        PlayerController.Instance.MakeBullet();
-        PlayerController.Instance.isBulletSelected = false;
-        PlayerController.Instance.selectAvailable = true;
-        PlayerController.Instance.bulletDestroyed = true;
-        Destroy(gameObject);
-
-        this.enabled = false;
+        if (isStarted && rb.linearVelocity == Vector2.zero && !isDestroyed && !hasUsedItem)
+        {
+            hasUsedItem = true;
+            StartCoroutine(UseItemAndDestroy());
+        }
     }
 
     void FixedUpdate()
@@ -169,7 +140,43 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private IEnumerator UseItemAndDestroy()
+    {
+        GetComponent<Magnetic>().Pull();
+        SoundsPlayer.Instance.PlaySFX(magneticSfx);
+
+        switch (PlayerController.Instance.selectedItem)
+        {
+            case 0:
+                GetComponent<Bomb>().UseBomb();
+                itemParticles[0].SetActive(true);
+                SoundsPlayer.Instance.PlaySFX(bombSfx, 0.8f, 1f);
+                break;
+            case 1:
+                GetComponent<KnockBack>().Push();
+                itemParticles[1].SetActive(true);
+                SoundsPlayer.Instance.PlaySFX(knockBackSfx);
+                break;
+            default:
+                break;
+        }
+
+        PlayerController.Instance.UseItem(PlayerController.Instance.selectedItem);
+        yield return new WaitForSeconds(1f);
+        DestroyBullet();
+    }
+
+    void DestroyBullet()
+    {
+        PlayerController.Instance.MakeBullet();
+        PlayerController.Instance.isBulletSelected = false;
+        PlayerController.Instance.selectAvailable = true;
+        PlayerController.Instance.bulletDestroyed = true;
+        Destroy(gameObject);
+        this.enabled = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.CompareTag("BackGround") || collision.gameObject.CompareTag("Block")) && backgroundHitSound != null)
         {
@@ -177,14 +184,8 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (GameManager.Instance == null) return;
-    }
-
-    // **드래그 세기에 따라 색상 변화**
-    Color GetPowerColor(float power)
-    {
-        return Color.Lerp(Color.green, Color.red, power);
     }
 }
