@@ -55,10 +55,14 @@ public class PlayerController : MonoBehaviour
         SelectRetryEvent();
     }
 
-    public void MakeBullet()
-    {
-        currentBullet = Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
-    }
+   public void MakeBullet()
+{
+    currentBullet = Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
+    // 블렛 재생성 시 아이템 선택 상태 초기화
+    isBulletSelected = false;
+    selectedItem = -1;
+    itemController.UnSelectItem();
+}
 
 
     public void UseItem(int item)
@@ -73,22 +77,14 @@ public class PlayerController : MonoBehaviour
 
     private void SelectItemEvent()
     {
-
         for (int i = 0; i < 6; i++)
         {
             if (Input.GetKeyDown((KeyCode)(KeyCode.Alpha1 + i)) && selectAvailable && itemController.IsItemRemain(i))
             {
-                if (selectedItem == i)
-                {
-                    selectedItem = -1;
-                    itemController.UnSelectItem();
-                }
-                else
-                {
-                    selectedItem = i;
-                    itemController.SelectItem(i);
-                    isBulletSelected = true;
-                }
+                // 이전 상태와 관계없이 바로 선택하도록 함
+                selectedItem = i;
+                itemController.SelectItem(i);
+                isBulletSelected = true;
             }
         }
     }
