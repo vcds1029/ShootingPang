@@ -26,16 +26,6 @@ public class StageSettings : MonoBehaviour
 
     private void SetStage()
     {
-        // Item은 ItemContoller
-        // Coin은 GameManager
-        // Bullet은 PlayerController
-        // 이 무슨 중구난방 구조인가
-        //ItemController.Instance.items[(int)Item.Bomb] = itemBomb;
-        //ItemController.Instance.items[(int)Item.Magnet] = itemMagnet;
-        //ItemController.Instance.items[(int)Item.KnockBack] = itemKnockBack;
-        //ItemController.Instance.items[(int)Item.Imotal] = itemImotal;
-        //ItemController.Instance.items[(int)Item.Cleaner] = itemCleaner;
-        //ItemController.Instance.items[(int)Item.ZeroGravity] = itemZeroGravity;
         ItemController.Instance.InitItem(items);
 
         //GameManager.Instance.remainCoin = numCoin;

@@ -1,32 +1,33 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public enum Item
 {
-    Bomb = 0,               // ÆøÅº: ÀÏÁ¤ ¹üÀ§ ³» ¾ÆÀÌÅÛ È¹µæ
-    KnockBack = 1,        // ¹ĞÄ¡±â: ÀÏÁ¤ ¹üÀ§ ³» ¾ÆÀÌÅÛ ¹ĞÄ¡±â
-    Imotal = 2,             // ¹«Àû: Æ¯Á¤ ±â¹Í È¸ÇÇ
-    Cleaner = 3,             // ¼¼Á¤Á¦: Æ¯Á¤ ±â¹Í È¸ÇÇ
-    ZeroGravity = 4      // ¹«Áß·Â: Æ¯Á¤ ±â¹Í È¸ÇÇ
+    Bomb = 0,               // í­íƒ„: ì¼ì • ë²”ìœ„ ë‚´ ì•„ì´í…œ íšë“
+    KnockBack = 1,        // ë°€ì¹˜ê¸°: ì¼ì • ë²”ìœ„ ë‚´ ì•„ì´í…œ ë°€ì¹˜ê¸°
+    Imotal = 2,             // ë¬´ì : íŠ¹ì • ê¸°ë¯¹ íšŒí”¼
+    Cleaner = 3,             // ì„¸ì •ì œ: íŠ¹ì • ê¸°ë¯¹ íšŒí”¼
+    ZeroGravity = 4      // ë¬´ì¤‘ë ¥: íŠ¹ì • ê¸°ë¯¹ íšŒí”¼
 }
-
 
 public class ItemController : MonoBehaviour
 {
     public static ItemController Instance { get; private set; }
 
-    [SerializeField] private List<Image> itemImage;
     [SerializeField] public int[] items;
-
-    private string[] itemStr = { "Bomb","KnockBack","Imotal"};
-            // , "Cleaner", "ZeroGravity"};
-
+    private int selectedItem = -1;
+    private Dictionary<Item, Color> itemColors = new Dictionary<Item, Color>
+    {
+        { Item.Bomb, Color.red },
+        { Item.KnockBack, Color.blue },
+        { Item.Imotal, Color.green },
+        { Item.Cleaner, Color.yellow },
+        { Item.ZeroGravity, Color.magenta }
+    };
 
     private void Awake()
     {
@@ -42,27 +43,7 @@ public class ItemController : MonoBehaviour
 
     void Start()
     {
-        ShowItem();
-    }
-
-    public void ShowItem()
-    {
-        // Function on Image
-        for (int i = 0; i < itemImage.Count; i++)
-        {
-            TextMeshProUGUI imageText = itemImage[i].GetComponentInChildren<TextMeshProUGUI>();
-            if (imageText != null)
-            {
-                if (items[i] == 0)
-                {
-                    imageText.text = "X";
-                }
-                else
-                {
-                    imageText.text = itemStr[i] + "\n" + items[i].ToString();
-                }
-            }
-        }
+        // ShowItem();
     }
 
     public bool UseItem(int item)
@@ -72,7 +53,6 @@ public class ItemController : MonoBehaviour
         if (items[item] > 0)
         {
             items[item]--;
-            ShowItem();
             return true;
         }
         else
@@ -83,33 +63,58 @@ public class ItemController : MonoBehaviour
 
     public void SelectItem(int item)
     {
+        if (selectedItem == item)
+        {
+            UnSelectItem();
+            return;
+        }
+
         ClearSelectItem();
-        itemImage[item].color = Color.cyan;
+        selectedItem = item;
+
+        ApplyItemToBullet();
     }
 
     public void UnSelectItem()
     {
         ClearSelectItem();
+        selectedItem = -1;
     }
 
     public void ClearSelectItem()
     {
-        foreach (Image img in itemImage)
+        if (PlayerController.Instance.currentBullet != null)
         {
-            img.color = Color.white;
+            SpriteRenderer bulletSpriteRenderer = PlayerController.Instance.currentBullet.GetComponent<SpriteRenderer>();
+            if (bulletSpriteRenderer != null)
+            {
+                bulletSpriteRenderer.color = Color.black; // ê¸°ë³¸ ìƒ‰ìƒìœ¼ë¡œ ë³€ê²½
+            }
+        }
+    }
+
+    // ğŸ”¹ ìƒˆë¡œìš´ Bulletì´ ìƒì„±ë  ë•Œ ìë™ìœ¼ë¡œ ì ìš©ë˜ë„ë¡ í•¨
+    public void ApplyItemToBullet()
+    {
+        if (PlayerController.Instance.currentBullet == null) return;
+
+        SpriteRenderer bulletSpriteRenderer = PlayerController.Instance.currentBullet.GetComponent<SpriteRenderer>();
+        if (bulletSpriteRenderer != null)
+        {
+            if (selectedItem != -1 && itemColors.TryGetValue((Item)selectedItem, out Color newColor))
+            {
+                bulletSpriteRenderer.color = newColor; // ì•„ì´í…œ ìƒ‰ìƒ ì ìš©
+            }
+            else
+            {
+                bulletSpriteRenderer.color = Color.black; // ê¸°ë³¸ê°’
+            }
         }
     }
 
     public bool IsItemRemain(int item)
     {
-        if (items[item] == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return items[item] > 0;
     }
 
     public void InitItem(int[] itemNums)
@@ -117,7 +122,6 @@ public class ItemController : MonoBehaviour
         items[(int)Item.Bomb] = itemNums[(int)Item.Bomb];
         items[(int)Item.KnockBack] = itemNums[(int)Item.KnockBack];
         items[(int)Item.Imotal] = itemNums[(int)Item.Imotal];
-        ShowItem();
+        // ShowItem();
     }
 }
-

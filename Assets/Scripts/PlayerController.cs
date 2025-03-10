@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool bulletDestroyed;
 
     public bool isPlayAvailable;
+    public GameObject currentBullet;
 
 
     private void Awake()
@@ -42,10 +43,7 @@ public class PlayerController : MonoBehaviour
         selectAvailable = true;
         selectedItem = -1;
 
-        Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
-
-        //bulletPossess = 5; // Temp bullet 
-        //UpdateBulletPossess();
+        MakeBullet();
 
         bulletDestroyed = false;
         isPlayAvailable = true;
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     public void MakeBullet()
     {
-        Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
+        currentBullet = Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
     }
 
 
@@ -124,12 +122,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator LateCallNoBullet()
-    {
-        yield return new WaitForSeconds(3.0f);
-        GameManager.Instance.NoBullet();
-        //bulletAvailable = true;
-    }
 
     public void InitBullet(int numBullet)
     {

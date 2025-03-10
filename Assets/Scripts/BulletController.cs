@@ -119,7 +119,7 @@ public class BulletController : MonoBehaviour
                 speedDampingBase = dynamicDamping;
 
                 Invoke("DestroyBullet", 3f);
-                ItemController.Instance.ClearSelectItem();
+                //ItemController.Instance.ClearSelectItem();
                 PlayerController.Instance.BulletUsed();
             }
 
